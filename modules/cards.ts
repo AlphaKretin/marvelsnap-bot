@@ -1,6 +1,6 @@
 import fetch from "make-fetch-happen";
 import fuse from "fuse.js";
-import { Message, MessageEmbed } from "discord.js";
+import { MessageEmbed } from "discord.js";
 import { messageCapSlice } from "./util";
 import { apisource, embed, picsource, picext, dbsource } from "../config.json";
 
@@ -74,12 +74,11 @@ function parseCardInfo(card: APICard): MessageEmbed {
 	return outEmbed;
 }
 
-export async function searchCard(query: string, msg: Message): Promise<void> {
+export function searchCard(query: string): MessageEmbed | undefined {
 	const fuzzyResult = cardFuzzy.search(query);
 	if (fuzzyResult.length > 0) {
 		const card = "name" in fuzzyResult[0] ? fuzzyResult[0] : fuzzyResult[0].item;
-		await msg.reply({ embeds: [parseCardInfo(card)], allowedMentions: { repliedUser: false } });
-		return;
+		return parseCardInfo(card);
 	}
-	await msg.react("❌");
+	return;
 }

@@ -1,11 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.errhand = exports.messageCapSlice = exports.cleanString = void 0;
-// strip non alpha-numeric characters so that someone searching for "Battlin' Boxer" and "battlingboxer" gets the same result
-function cleanString(s) {
-    return s.toLowerCase().replace(/[\W_]+/g, "");
-}
-exports.cleanString = cleanString;
+exports.errhand = exports.messageCapSlice = void 0;
 function messageCapSlice(outString) {
     const outStrings = [];
     const MESSAGE_CAP = 2000;

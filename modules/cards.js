@@ -32,7 +32,6 @@ function updateCardNames() {
     return __awaiter(this, void 0, void 0, function* () {
         const rawResponse = yield (0, make_fetch_happen_1.default)(config_json_1.apisource);
         allCards = (yield rawResponse.json());
-        console.log(allCards);
         exports.cardFuzzy = new fuse_js_1.default(allCards, fuseOptions);
     });
 }
@@ -71,16 +70,13 @@ function parseCardInfo(card) {
     }
     return outEmbed;
 }
-function searchCard(query, msg) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const fuzzyResult = exports.cardFuzzy.search(query);
-        if (fuzzyResult.length > 0) {
-            const card = "name" in fuzzyResult[0] ? fuzzyResult[0] : fuzzyResult[0].item;
-            yield msg.reply({ embeds: [parseCardInfo(card)], allowedMentions: { repliedUser: false } });
-            return;
-        }
-        yield msg.react("❌");
-    });
+function searchCard(query) {
+    const fuzzyResult = exports.cardFuzzy.search(query);
+    if (fuzzyResult.length > 0) {
+        const card = "name" in fuzzyResult[0] ? fuzzyResult[0] : fuzzyResult[0].item;
+        return parseCardInfo(card);
+    }
+    return;
 }
 exports.searchCard = searchCard;
 //# sourceMappingURL=cards.js.map

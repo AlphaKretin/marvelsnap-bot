@@ -1,8 +1,3 @@
-// strip non alpha-numeric characters so that someone searching for "Battlin' Boxer" and "battlingboxer" gets the same result
-export function cleanString(s: string): string {
-	return s.toLowerCase().replace(/[\W_]+/g, "");
-}
-
 export function messageCapSlice(outString: string): string[] {
 	const outStrings: string[] = [];
 	const MESSAGE_CAP = 2000;
