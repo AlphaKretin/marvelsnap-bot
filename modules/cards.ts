@@ -53,17 +53,17 @@ function generateCardStats(card: APICard): string {
 
 function parseCardInfo(card: APICard): MessageEmbed {
 	const stats = generateCardStats(card);
-	let footer = `${card.id}`;
-	if (card.status) {
-		footer += ` Status: ${card.status}`;
-	}
+
 	let outEmbed = new MessageEmbed()
 		.setColor(embed)
 		.setDescription(stats)
-		.setFooter({ text: footer })
 		.setThumbnail(picsource + card.id + picext)
 		.setTitle(card.name)
 		.setURL(dbsource + encodeURIComponent(card.pretty_url));
+
+	if (card.status) {
+		outEmbed = outEmbed.setFooter({ text: `Status: ${card.status}` });
+	}
 
 	const descs = messageCapSlice(card.ability || "");
 	outEmbed = outEmbed.addField("Card Ability", descs[0].length > 0 ? descs[0] : "No Ability");

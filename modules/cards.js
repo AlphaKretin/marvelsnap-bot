@@ -52,17 +52,15 @@ function generateCardStats(card) {
 }
 function parseCardInfo(card) {
     const stats = generateCardStats(card);
-    let footer = `${card.id}`;
-    if (card.status) {
-        footer += ` Status: ${card.status}`;
-    }
     let outEmbed = new discord_js_1.MessageEmbed()
         .setColor(config_json_1.embed)
         .setDescription(stats)
-        .setFooter({ text: footer })
         .setThumbnail(config_json_1.picsource + card.id + config_json_1.picext)
         .setTitle(card.name)
         .setURL(config_json_1.dbsource + encodeURIComponent(card.pretty_url));
+    if (card.status) {
+        outEmbed = outEmbed.setFooter({ text: `Status: ${card.status}` });
+    }
     const descs = (0, util_1.messageCapSlice)(card.ability || "");
     outEmbed = outEmbed.addField("Card Ability", descs[0].length > 0 ? descs[0] : "No Ability");
     for (let i = 1; i < descs.length; i++) {
