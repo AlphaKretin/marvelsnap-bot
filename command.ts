@@ -10,7 +10,7 @@ const commands = [
 		.addStringOption(option => option.setName("name").setDescription("The name of the card.").setRequired(true)),
 	new SlashCommandBuilder()
 		.setName("deck")
-		.setDescription("Search for Marvel Snap Decks.")
+		.setDescription("Search for a deck on MarvelSnap.io.")
 		.addStringOption(option => option.setName("name").setDescription("The name of the deck.").setRequired(false))
 		.addStringOption(option =>
 			option.setName("card").setDescription("The name of a card in the deck").setRequired(false)

@@ -29,7 +29,7 @@ function searchDecks(name, card) {
             }
         }
         if (card) {
-            url += `card=${encodeURIComponent(card)}`;
+            url += `cardcode=${encodeURIComponent(card)}`;
         }
         const deckResponse = yield (0, make_fetch_happen_1.default)(url);
         const decks = (yield deckResponse.json());
@@ -42,7 +42,7 @@ function searchDecks(name, card) {
             }
             const fiveDecks = decks.slice(0, 5);
             const deckStrings = fiveDecks.map(d => `[${d.deck_name}](${config_json_1.deckurl + d.pretty_url}) created by ${d.username} (${d.deck_views} 👁️)`);
-            const deckEmbed = new discord_js_1.MessageEmbed().setTitle("Decks").setDescription(deckStrings.join("\n"));
+            const deckEmbed = new discord_js_1.MessageEmbed().setTitle("Decks").setDescription(deckStrings.join("\n")).setColor(config_json_1.embed);
             return deckEmbed;
         }
     });

@@ -1,6 +1,6 @@
 import { MessageEmbed } from "discord.js";
 import fetch from "make-fetch-happen";
-import { decksource, deckurl } from "../config.json";
+import { decksource, deckurl, embed } from "../config.json";
 
 interface APIDeck {
 	username: string;
@@ -37,7 +37,7 @@ export async function searchDecks(name: string | null, card: string | null): Pro
 		}
 	}
 	if (card) {
-		url += `card=${encodeURIComponent(card)}`;
+		url += `cardcode=${encodeURIComponent(card)}`;
 	}
 	const deckResponse = await fetch(url);
 	const decks = (await deckResponse.json()) as APIDeck[] | APIError;
@@ -51,7 +51,7 @@ export async function searchDecks(name: string | null, card: string | null): Pro
 		const deckStrings = fiveDecks.map(
 			d => `[${d.deck_name}](${deckurl + d.pretty_url}) created by ${d.username} (${d.deck_views} 👁️)`
 		);
-		const deckEmbed = new MessageEmbed().setTitle("Decks").setDescription(deckStrings.join("\n"));
+		const deckEmbed = new MessageEmbed().setTitle("Decks").setDescription(deckStrings.join("\n")).setColor(embed);
 		return deckEmbed;
 	}
 }
