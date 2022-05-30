@@ -17,7 +17,7 @@ const commands = [
 ].map(command => command.toJSON());
 const rest = new rest_1.REST({ version: "9" }).setToken(auth_json_1.token);
 rest
-    .put(v9_1.Routes.applicationGuildCommands(auth_json_1.clientId, auth_json_1.guildId), { body: commands })
+    .put(v9_1.Routes.applicationCommands(auth_json_1.clientId), { body: commands })
     .then(() => console.log("Successfully registered application commands."))
     .catch(console.error);
 //# sourceMappingURL=command.js.map
