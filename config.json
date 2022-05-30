@@ -5,5 +5,6 @@
 	"picsource": "https://images.marvelsnap.io/images/cards/",
 	"picext": ".jpg",
 	"dbsource": "https://marvelsnap.io/card/",
-	"maxSearch": 2
+	"decksource": "https://marvelsnap.io/api/decks/getDecks.php",
+	"deckurl": "https://marvelsnap.io/deck/"
 }

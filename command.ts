@@ -7,7 +7,14 @@ const commands = [
 	new SlashCommandBuilder()
 		.setName("card")
 		.setDescription("Search for a Marvel Snap card.")
-		.addStringOption(option => option.setName("name").setDescription("The name of the card.").setRequired(true))
+		.addStringOption(option => option.setName("name").setDescription("The name of the card.").setRequired(true)),
+	new SlashCommandBuilder()
+		.setName("deck")
+		.setDescription("Search for Marvel Snap Decks.")
+		.addStringOption(option => option.setName("name").setDescription("The name of the deck.").setRequired(false))
+		.addStringOption(option =>
+			option.setName("card").setDescription("The name of a card in the deck").setRequired(false)
+		)
 ].map(command => command.toJSON());
 
 const rest = new REST({ version: "9" }).setToken(token);

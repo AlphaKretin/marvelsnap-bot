@@ -88,4 +88,4 @@ typings/
 .dynamodb/
 
 # Secret Discord Token
-auth.json
+auth*.json

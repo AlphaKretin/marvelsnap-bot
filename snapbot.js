@@ -13,6 +13,7 @@ const discord_js_1 = require("discord.js");
 const auth_json_1 = require("./auth.json");
 const util_1 = require("./modules/util");
 const cards_js_1 = require("./modules/cards.js");
+const decks_1 = require("./modules/decks");
 process.on("unhandledRejection", util_1.errhand);
 const bot = new discord_js_1.Client({ intents: ["GUILD_MESSAGES"] });
 function update() {
@@ -25,13 +26,45 @@ function update() {
 bot.on("interactionCreate", (i) => __awaiter(void 0, void 0, void 0, function* () {
     if (!i.isCommand())
         return;
-    const name = i.options.getString("name", true);
-    const embed = (0, cards_js_1.searchCard)(name);
-    if (embed) {
-        yield i.reply({ embeds: [embed] });
+    if (i.commandName === "card") {
+        const name = i.options.getString("name", true);
+        const embed = (0, cards_js_1.searchCard)(name);
+        if (embed) {
+            yield i.reply({ embeds: [embed] });
+        }
+        else {
+            yield i.reply({
+                ephemeral: true,
+                content: `Sorry, I couldn't find a card with a name that matches \`${name}\`.`
+            });
+        }
+        return;
     }
-    else {
-        yield i.reply({ ephemeral: true, content: `Sorry, I couldn't find a card with a name that matches \`${name}\`.` });
+    if (i.commandName === "deck") {
+        const name = i.options.getString("name", false);
+        const card = i.options.getString("card", false);
+        const embed = yield (0, decks_1.searchDecks)(name, card);
+        if (embed) {
+            yield i.reply({ embeds: [embed] });
+        }
+        else {
+            let message = ", I couldn't find any decks that match ";
+            if (name) {
+                message += `the name \`${name}\``;
+                if (card) {
+                    message += " and ";
+                }
+            }
+            if (card) {
+                message += `the card \`${card}\``;
+            }
+            message += ".";
+            yield i.reply({
+                ephemeral: true,
+                content: message
+            });
+        }
+        return;
     }
 }));
 bot.on("error", util_1.errhand);
