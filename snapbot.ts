@@ -65,6 +65,13 @@ bot.on("warn", errhand);
 bot.on("ready", () => {
 	console.log("Logged in as %s - %s", bot.user?.username || "null", bot.user?.id || "null");
 	update().then(() => console.log("Ready to go!"));
+	const ONE_DAY_MS = 1000 * 60 * 60 * 24;
+	setInterval(() => {
+		console.log("Starting update!");
+		update()
+			.then(() => console.log("Update complete!"))
+			.catch(e => console.log(e));
+	}, ONE_DAY_MS);
 });
 
 bot.login(token);

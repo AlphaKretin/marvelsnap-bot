@@ -75,6 +75,13 @@ bot.on("ready", () => {
     var _a, _b;
     console.log("Logged in as %s - %s", ((_a = bot.user) === null || _a === void 0 ? void 0 : _a.username) || "null", ((_b = bot.user) === null || _b === void 0 ? void 0 : _b.id) || "null");
     update().then(() => console.log("Ready to go!"));
+    const ONE_DAY_MS = 1000 * 60 * 60 * 24;
+    setInterval(() => {
+        console.log("Starting update!");
+        update()
+            .then(() => console.log("Update complete!"))
+            .catch(e => console.log(e));
+    }, ONE_DAY_MS);
 });
 bot.login(auth_json_1.token);
 //# sourceMappingURL=snapbot.js.map
