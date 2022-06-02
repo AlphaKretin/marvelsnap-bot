@@ -34,6 +34,7 @@ interface APICard {
 	status?: string;
 	variants?: string;
 	pretty_url: string;
+	method: string | null;
 }
 
 function generateCardStats(card: APICard): string {
@@ -61,8 +62,8 @@ function parseCardInfo(card: APICard): MessageEmbed {
 		.setTitle(card.name)
 		.setURL(dbsource + encodeURIComponent(card.pretty_url));
 
-	if (card.status) {
-		outEmbed = outEmbed.setFooter({ text: `Status: ${card.status}` });
+	if (card.method) {
+		outEmbed = outEmbed.setFooter({ text: `Method: ${card.method}` });
 	}
 
 	const descs = messageCapSlice(card.ability || "");
