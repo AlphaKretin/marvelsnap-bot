@@ -29,8 +29,9 @@ bot.on("interactionCreate", (i) => __awaiter(void 0, void 0, void 0, function* (
     if (i.commandName === "card") {
         const name = i.options.getString("name", true);
         const embed = (0, cards_js_1.searchCard)(name);
+        const ephemeral = i.options.getBoolean("ephemeral", false) || false;
         if (embed) {
-            yield i.reply({ embeds: [embed] });
+            yield i.reply({ ephemeral, embeds: [embed] });
         }
         else {
             yield i.reply({
@@ -44,8 +45,9 @@ bot.on("interactionCreate", (i) => __awaiter(void 0, void 0, void 0, function* (
         const name = i.options.getString("name", false);
         const card = i.options.getString("card", false);
         const embed = yield (0, decks_1.searchDecks)(name, card);
+        const ephemeral = i.options.getBoolean("ephemeral", false) || false;
         if (embed) {
-            yield i.reply({ embeds: [embed] });
+            yield i.reply({ ephemeral, embeds: [embed] });
         }
         else {
             let message = ", I couldn't find any decks that match ";

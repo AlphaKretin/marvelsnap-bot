@@ -8,12 +8,14 @@ const commands = [
     new builders_1.SlashCommandBuilder()
         .setName("card")
         .setDescription("Search for a Marvel Snap card.")
-        .addStringOption(option => option.setName("name").setDescription("The name of the card.").setRequired(true)),
+        .addStringOption(option => option.setName("name").setDescription("The name of the card.").setRequired(true))
+        .addBooleanOption(option => option.setName("ephemeral").setDescription("Whether to send the result message only to you.").setRequired(false)),
     new builders_1.SlashCommandBuilder()
         .setName("deck")
         .setDescription("Search for a deck on MarvelSnap.io.")
         .addStringOption(option => option.setName("name").setDescription("The name of the deck.").setRequired(false))
         .addStringOption(option => option.setName("card").setDescription("The name of a card in the deck").setRequired(false))
+        .addBooleanOption(option => option.setName("ephemeral").setDescription("Whether to send the result message only to you.").setRequired(false))
 ].map(command => command.toJSON());
 const rest = new rest_1.REST({ version: "9" }).setToken(auth_json_1.token);
 rest
