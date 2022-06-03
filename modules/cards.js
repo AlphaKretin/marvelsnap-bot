@@ -59,7 +59,7 @@ function parseCardInfo(card) {
         .setTitle(card.name)
         .setURL(config_json_1.dbsource + encodeURIComponent(card.pretty_url));
     if (card.method) {
-        outEmbed = outEmbed.setFooter({ text: `Method: ${card.method}` });
+        outEmbed = outEmbed.setFooter({ text: `Obtained: ${card.method}` });
     }
     const descs = (0, util_1.messageCapSlice)(card.ability || "");
     outEmbed = outEmbed.addField("Card Ability", descs[0].length > 0 ? descs[0] : "No Ability");

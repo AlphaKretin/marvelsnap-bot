@@ -63,7 +63,7 @@ function parseCardInfo(card: APICard): MessageEmbed {
 		.setURL(dbsource + encodeURIComponent(card.pretty_url));
 
 	if (card.method) {
-		outEmbed = outEmbed.setFooter({ text: `Method: ${card.method}` });
+		outEmbed = outEmbed.setFooter({ text: `Obtained: ${card.method}` });
 	}
 
 	const descs = messageCapSlice(card.ability || "");
