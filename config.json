@@ -3,7 +3,7 @@
 	"apisource": "https://marvelsnap.io/api/search.php",
 	"embed": 1548984,
 	"picsource": "https://images.marvelsnap.io/images/cards/",
-	"picext": ".jpg",
+	"picext": ".webp",
 	"dbsource": "https://marvelsnap.io/card/",
 	"decksource": "https://marvelsnap.io/api/decks/getDecks.php",
 	"deckurl": "https://marvelsnap.io/deck/"
