@@ -35,6 +35,7 @@ interface APICard {
 	variants?: string;
 	pretty_url: string;
 	method: string | null;
+	slug: string;
 }
 
 function generateCardStats(card: APICard): string {
@@ -55,12 +56,14 @@ function generateCardStats(card: APICard): string {
 function parseCardInfo(card: APICard): MessageEmbed {
 	const stats = generateCardStats(card);
 
+	const cardURL = dbsource + encodeURIComponent(card.pretty_url);
+
 	let outEmbed = new MessageEmbed()
 		.setColor(embed)
 		.setDescription(stats)
 		.setThumbnail(picsource + card.id + picext)
 		.setTitle(card.name)
-		.setURL(dbsource + encodeURIComponent(card.pretty_url));
+		.setURL(cardURL);
 
 	if (card.method) {
 		outEmbed = outEmbed.setFooter({ text: `Obtained: ${card.method}` });
@@ -71,6 +74,14 @@ function parseCardInfo(card: APICard): MessageEmbed {
 	for (let i = 1; i < descs.length; i++) {
 		outEmbed = outEmbed.addField("Continued", descs[i]);
 	}
+
+	const fanURL = `https://snap.fan/${card.type === "Location" ? "locations" : "cards"}/${encodeURIComponent(
+		card.slug
+	)}`;
+	const deckURL = `https://marvelsnap.io/deck-search/?&cardcode=${encodeURIComponent(card.id)}&offset=0`;
+
+	const URLs = `[MarvelSnap.io](${cardURL}) | [Snap.Fan](${fanURL}) | [Decks With ${card.name}](${deckURL})`;
+	outEmbed = outEmbed.addField("Card Resources", URLs);
 
 	return outEmbed;
 }

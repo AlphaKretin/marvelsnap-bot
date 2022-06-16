@@ -52,12 +52,13 @@ function generateCardStats(card) {
 }
 function parseCardInfo(card) {
     const stats = generateCardStats(card);
+    const cardURL = config_json_1.dbsource + encodeURIComponent(card.pretty_url);
     let outEmbed = new discord_js_1.MessageEmbed()
         .setColor(config_json_1.embed)
         .setDescription(stats)
         .setThumbnail(config_json_1.picsource + card.id + config_json_1.picext)
         .setTitle(card.name)
-        .setURL(config_json_1.dbsource + encodeURIComponent(card.pretty_url));
+        .setURL(cardURL);
     if (card.method) {
         outEmbed = outEmbed.setFooter({ text: `Obtained: ${card.method}` });
     }
@@ -66,6 +67,10 @@ function parseCardInfo(card) {
     for (let i = 1; i < descs.length; i++) {
         outEmbed = outEmbed.addField("Continued", descs[i]);
     }
+    const fanURL = `https://snap.fan/${card.type === "Location" ? "locations" : "cards"}/${encodeURIComponent(card.slug)}`;
+    const deckURL = `https://marvelsnap.io/deck-search/?&cardcode=${encodeURIComponent(card.id)}&offset=0`;
+    const URLs = `[MarvelSnap.io](${cardURL}) | [Snap.Fan](${fanURL}) | [Decks With ${card.name}](${deckURL})`;
+    outEmbed = outEmbed.addField("Card Resources", URLs);
     return outEmbed;
 }
 function searchCard(query) {
